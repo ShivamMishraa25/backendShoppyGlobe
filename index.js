@@ -1,8 +1,17 @@
 import express from 'express';
-const app = express();
 import mongoose from 'mongoose';
+import { userRoutes } from './routes/user.routes.js';
 
-mongoose.connect('mongodb+srv://shoppyGlobe:z3DJmvXv@WvmHN2@cluster0.4rntlkq.mongodb.net/') //cloud atlas
+const app = express();
+// Add this line to parse JSON bodies
+app.use(express.json());
+
+const PORT = 5000;
+app.listen(PORT, () => {
+    console.log(`server running at port : ${PORT}`);
+})
+
+mongoose.connect('mongodb+srv://shoppyGlobe:rokCe1aJVZ63YKO3@cluster0.4rntlkq.mongodb.net/') //cloud atlas
 .then(() => {
     console.log(`db connected succesfully`);
 })
@@ -10,7 +19,8 @@ mongoose.connect('mongodb+srv://shoppyGlobe:z3DJmvXv@WvmHN2@cluster0.4rntlkq.mon
     console.log(`caught an error : ${err}`);
 });
 
-const PORT = 5000;
-app.listen(PORT, () => {
-    console.log(`server running at port : ${PORT}`);
-})
+app.get("/", (req, res) => {
+    res.send("Welcome !");
+});
+
+userRoutes(app);
