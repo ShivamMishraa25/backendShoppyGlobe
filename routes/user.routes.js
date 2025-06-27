@@ -1,6 +1,7 @@
-import { userLogin, userRegister } from "../controllers/user.controller.js";
+import { userLogin, userRegister } from "../controllers/user.controller.js"; // import all user controller logics
 
+// define all the user paths and their respective controller logics
 export function userRoutes(app) {
-    app.post("/api/user/register", userRegister);
-    app.get("/api/user/login", userLogin);
+    app.post("/register", userRegister);
+    app.post("/login", userLogin);
 }
