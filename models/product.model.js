@@ -25,6 +25,10 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    "quantity": { // quantity is not needed for my front-end but Im adding for rubrics
+        type: Number,
+        required: false
+    }
 });
 
 const productModel = mongoose.model("products", productSchema);
