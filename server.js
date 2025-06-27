@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { userRoutes } from './routes/user.routes.js';
 import { productRoutes } from './routes/products.routes.js';
+import { cartRoutes } from './routes/cart.routes.js';
 
 const app = express();
 // Add this line to parse JSON bodies
@@ -25,4 +26,5 @@ app.get("/", (req, res) => {
 });
 
 productRoutes(app);
-// userRoutes(app);
+userRoutes(app);
+cartRoutes(app);

@@ -26,7 +26,8 @@ export async function userLogin(req, res) {
         if (!await bcrypt.compare(unhashedPassword, user.password)) {
             return res.status(401).send("invalid password");
         }
-        return res.send(200).json(user);
+        const token = jwt.sign(user, process.env.JWT_SECRET, {expiresIn: "30d"});
+        return res.send(200).json({message: "user logged-in successfully!"}, token);
     } catch (err) {
         res.status(500).json({error: err.message});
     }
