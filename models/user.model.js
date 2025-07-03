@@ -3,17 +3,22 @@ import mongoose from 'mongoose'; // import mongoose for schema and model
 // define user's schema, with validation, so empty data can't be passed
 const userSchema = mongoose.Schema({
     fullName: {
-        type: String,
-        required: true
+        type: String, // type string
+        required: true, // tells that this field cannot be left empty
+        trim: true // for extra wide spaces
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        unique: true, // email has to be unique
+        lowercase: true, // characters have to be lowercase
+        required: [true, "Email is Required"] // if not available then send this message
     },
     password: {
         type: String,
-        required: true
+        required: [true, "Password is Required"],
+        minlength: [6, "Password must be at least 6 characters"], // sets min length of password
+        maxlength: [32, "Password must not exceed 32 characters"], // sets max length of the password
+        select: false // password does not show in querries
     }
 });
 
