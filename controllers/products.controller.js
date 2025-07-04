@@ -45,7 +45,7 @@ export async function updateProduct(req, res) {
         const {id} = req.params;
 
         // find product by id and update
-        const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {new: true});
+        const updatedProduct = await productModel.findByIdAndUpdate(id, req.body, {new: true});
 
         // if product id could not be found then, send 404 response
         if (!updatedProduct) {
@@ -65,7 +65,7 @@ export async function deleteProduct(req, res) {
         const {id} = req.params;
 
         // find product by id and delete
-        const deletedProduct = await Product.findByIdAndDelete(id);
+        const deletedProduct = await productModel.findByIdAndDelete(id);
 
         if (!deletedProduct) {
             return res.status(404).json({ message: 'Product not found' }); // if not deleted then send product not found
