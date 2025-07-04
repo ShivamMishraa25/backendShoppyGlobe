@@ -4,16 +4,19 @@ import mongoose from "mongoose"; // import mongooose to create schema and model 
 const cartSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
         required: true,
         unique: true
     },
     productId: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "products",
         required: true
     },
     quantity: {
         type: Number,
-        required: true
+        required: true,
+        default: 1
     }
 });
 

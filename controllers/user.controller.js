@@ -26,9 +26,9 @@ export async function userRegister(req, res) {
         }
 
         // Password regex validation (at least 6 chars, 1 letter, 1 number)
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).+$/;
         if (!passwordRegex.test(password)) {
-            return res.status(400).json({ message: "password must be at least 6 characters, include at least one letter and one number" });
+            return res.status(400).json({ message: "password must be at least 6 characters, include at least one letter, one number and one special character." });
         }
 
         // if email is already registered, send 409 status
@@ -49,11 +49,13 @@ export async function userRegister(req, res) {
 export async function userLogin(req, res) {
     try {
         const { email, password } = req.body;
+
+        // Validation for email and password
         if(!email) {
-            res.status(404).json({message: "email is required"});
+            return res.status(404).json({message: "email is required"});
         }
         if(!password) {
-            res.status(404).json({message: "password is required"});
+            return res.status(404).json({message: "password is required"});
         }
 
         const user = await userModel.findOne({ email: email }); // find user by email
@@ -62,8 +64,8 @@ export async function userLogin(req, res) {
         }
 
         // compare entered password with hashed password
-        const isMatch = bcrypt.compareSync(password, user.password);
-        if (!isMatch) {
+        const isValid = bcrypt.compareSync(password, user.password);
+        if (!isValid) {
             return res.status(401).send("invalid password"); // if not matched, send password incorrect
         }
         const token = jwt.sign({user}, process.env.JWT_SECRET, { expiresIn: "30d" }); // create a token with secretKey in dotenv

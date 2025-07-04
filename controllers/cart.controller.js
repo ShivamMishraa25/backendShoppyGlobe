@@ -68,3 +68,18 @@ export async function deleteCart(req, res) {
         res.status(500).json({ message: "error occurred" });
     }
 }
+
+export async function fetchCart(req, res) {
+    try {
+        const { userId } = req.params;
+
+        // fetch all products from the cart with userId
+        const cart = await cartModel.find({userId});
+        if (!cart) {
+            return res.status(404).json({ message: "cart is empty" }); // send 404 if not found
+        }
+        return res.status(200).json(cart); // send cart products
+    } catch (err) {
+        res.status(500).json({ message: "error occurred" });
+    }
+}
