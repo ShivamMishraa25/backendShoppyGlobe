@@ -111,3 +111,26 @@ Built as part of **Internshala’s PGC Full Stack Development Program**
 ## ✅ License
 
 This project is open-source and available for learning purposes.
+
+
+# PS: To use the /cart API:
+
+POST /cart
+Send the userId in the dynamic URL and productId in the request body.
+
+Example:
+
+# POST /cart:123user
+{
+  "productId": "123product"
+}
+PUT /cart
+When using the PUT method, send the productId and increaseQuantity in the request body.
+
+Example:
+
+# PUT /cart:123user
+{
+  "productId": "123product",
+  "increaseQuantity": 5
+}
